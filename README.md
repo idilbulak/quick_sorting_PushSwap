@@ -16,6 +16,7 @@ that sorts the integers received as arguments.
 
   -- The stack a contains a random amount of negative and/or positive numbers
   which cannot be duplicated.
+  
   -- The stack b is empty.
 
 • The goal is to sort in ascending order numbers into stack a. To do so you have the
@@ -23,7 +24,6 @@ following operations at your disposal:
 
   -sa (swap a): Swap the first 2 elements at the top of stack a.
   Do nothing if there is only one or no elements.
-  
   -sb (swap b): Swap the first 2 elements at the top of stack b.
   Do nothing if there is only one or no elements.
   
