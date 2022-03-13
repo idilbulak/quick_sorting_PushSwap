@@ -9,6 +9,7 @@ on the standard output the smallest program, made of Push swap language instruct
 that sorts the integers received as arguments.
 
 The rules
+
 • You have 2 stacks named a and b.
 • At the beginning:
   ◦ The stack a contains a random amount of negative and/or positive numbers
