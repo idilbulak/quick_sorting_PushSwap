@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main_doubly_linkedlist.c                           :+:    :+:            */
+/*   push_swap.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:17:13 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/09 21:53:50 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/14 12:02:31 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int	main(int argc, char **argv)
 			stack_a = sort_3(stack_a);
 		else if (argc == 6)
 			stack_a = sort_5(stack_a, stack_b);
-		printlist (stack_a);
+		else if (argc > 6)
+			sort_large(stack_a, stack_b);
+		// printlist (stack_a);
 	// printlist (stack_b);
 	// pb(&stack_a, &stack_b);
 	// pb(stack_a, stack_b);

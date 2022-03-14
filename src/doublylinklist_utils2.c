@@ -28,13 +28,13 @@ struct node	*delete_last(struct node *head)
 
 int	find_min(struct node *stack)
 {
-	struct node *temp;
+	struct node	*temp;
 	int			result;
 
 	if (stack != NULL)
 	{
 		temp = stack;
-		result = temp->numberfield; 
+		result = temp->numberfield;
 		while (temp != NULL)
 		{
 			if ((temp->numberfield < result))

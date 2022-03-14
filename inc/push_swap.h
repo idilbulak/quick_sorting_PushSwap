@@ -40,6 +40,7 @@ int			find_max(struct node *stack);
 
 struct node	*sort_3(struct node *stack_a);
 struct node	*sort_5(struct node *stack_a, struct node *stack_b);
+struct node	*sort_large(struct node *stack_a, struct node *stack_b);
 
 
 
