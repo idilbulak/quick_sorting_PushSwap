@@ -49,13 +49,13 @@ int	find_min(struct node *stack)
 
 int	find_max(struct node *stack)
 {
-	struct node *temp;
+	struct node	*temp;
 	int			result;
 
 	if (stack != NULL)
 	{
 		temp = stack;
-		result = temp->numberfield; 
+		result = temp->numberfield;
 		while (temp != NULL)
 		{
 			if ((temp->numberfield > result))
@@ -64,6 +64,26 @@ int	find_max(struct node *stack)
 			}
 			temp = temp->next;
 		}
+	}
+	return (result);
+}
+
+int	find_next_min(struct node *stack, int min)
+{
+	struct node	*temp;
+	int			result;
+
+	temp = stack;
+	if (temp->numberfield == min)
+		temp = temp->next;
+	result = temp->numberfield;
+	while (temp)
+	{
+		if (temp->numberfield < result && temp->numberfield > min)
+		{
+			result = temp->numberfield;
+		}
+		temp = temp->next;
 	}
 	return (result);
 }

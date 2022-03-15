@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   push_swap.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/15 14:38:29 by ibulak        #+#    #+#                 */
+/*   Updated: 2022/03/15 15:13:16 by ibulak        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
 
 typedef struct node
 {
@@ -37,11 +49,11 @@ struct node	*delete_first(struct node *head);
 struct node	*delete_last(struct node *head);
 int			find_min(struct node *stack);
 int			find_max(struct node *stack);
+int			find_next_min(struct node *stack, int min);
+int			find_index(struct node *stack_a, int numberfield);
 
 struct node	*sort_3(struct node *stack_a);
 struct node	*sort_5(struct node *stack_a, struct node *stack_b);
-struct node	*sort_large(struct node *stack_a, struct node *stack_b);
+struct node	*sort_large(struct node **stack_a, struct node **stack_b);
 
-
-
-# endif
+#endif

@@ -12,7 +12,7 @@ INCLUDES		=	./inc/
 AR				=	ar
 ARFLAGS			=	rcs
 
-SRCS_F			=	swap_functions.c rotate_functions.c reverserotate_functions.c push_functions.c doublylinklist_utils.c doublylinklist_utils2.c sort_3.c sort_5.c push_swap.c sort_large.c
+SRCS_F			=	swap_functions.c rotate_functions.c reverserotate_functions.c push_functions.c doublylinklist_utils.c doublylinklist_utils2.c doublylinklist_utils3.c sort_3.c sort_5.c push_swap.c sort_large.c
 
 SRCS			= 	$(addprefix $(SRCS_DIR), $(SRCS_F))
 
