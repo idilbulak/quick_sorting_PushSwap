@@ -74,7 +74,7 @@ int	find_next_min(struct node *stack, int min)
 	int			result;
 
 	temp = stack;
-	if (temp->numberfield == min)
+	while (temp->numberfield == min || temp->numberfield < min)
 		temp = temp->next;
 	result = temp->numberfield;
 	while (temp)

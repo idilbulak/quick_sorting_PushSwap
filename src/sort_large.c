@@ -6,7 +6,7 @@
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/15 14:38:23 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/15 20:37:43 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/25 16:36:31 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ struct node	*find_chunk(struct node **stack_a, int min, int range)
 
 	count = 0;
 	temp = addto_emptylist(temp, min);
-	while (*stack_a != NULL && count < range)
+	while (*stack_a != NULL && count < range - 1)
 	{
-		printlist(*stack_a);
 		min = find_next_min(*stack_a, min);
 		temp = addto_beg(temp, min);
-		printf("min:%d\n", min);
 		count++;
 	}
-	printlist(temp);
 	return (temp);
 }
 
@@ -114,46 +111,112 @@ struct node	*sort_large(struct node **stack_a, struct node **stack_b)
 	int	hold_last;
 	struct node	*temp;
 	int	index;
+	int count = 0;
+	int	i = 0;
 	
 	size = ft_lstsize(*stack_a);
 	chunks = how_many_chunks(size);
 	range = size / chunks;
+	while (i < chunks)
+{
 	min = find_min(*stack_a);
 	temp = find_chunk(stack_a, min, range);
-	printlist(temp);
-	hold_first = ft_hold_first(stack_a, temp);
-	while ((*stack_a)->next != NULL)
-		*stack_a = (*stack_a)->next;
-	hold_last = ft_hold_last(stack_a, temp);
-	while ((*stack_a)->prev != NULL)
-		*stack_a = (*stack_a)->prev;
-	// printf("first:%d", find_index(*stack_a, hold_first));
-	int index_first = find_index(*stack_a, hold_first);
-	int index_last = find_index(*stack_a, hold_last);
-	if ( index_first <= (size - index_last + 1))
-	{
-		index = 0;
-		while (index < index_first - 1)
+	while (count < range - 1)
+	{	
+		hold_first = ft_hold_first(stack_a, temp);
+		while ((*stack_a)->next != NULL)
+			*stack_a = (*stack_a)->next;
+		hold_last = ft_hold_last(stack_a, temp);
+		while ((*stack_a)->prev != NULL)
+			*stack_a = (*stack_a)->prev;
+		int index_first = find_index(*stack_a, hold_first);
+		int index_last = find_index(*stack_a, hold_last);
+		if ( index_first <= size - index_last + 1)
+		{
+			index = 0;
+			while (index < index_first - 1)
+			{
+				ra(stack_a);
+				index++;
+			}
+		}
+		else
+		{
+			index = 0;
+			while (index <= (size - index_last))
+			{
+				rra(stack_a);
+				index++;
+			}
+		}
+		if ((*stack_b) == NULL)
+			pb(stack_a, stack_b);
+		else if (ft_lstsize(*stack_b) == 1)
+		{
+			pb(stack_a, stack_b);
+			if ((*stack_b)->numberfield < (*stack_b)->next->numberfield)
+				sb(*stack_b);
+		}
+		else
+		{
+			min = find_min(*stack_b);
+			if ((*stack_a)->numberfield < min)
+			{
+				pb(stack_a, stack_b);
+				ra(stack_b);
+			}
+			else
+			{
+				while ((*stack_a)->numberfield < (*stack_b)->numberfield)
+					ra(stack_b);
+				pb(stack_a, stack_b);
+			}
+		}
+		count++;
+	}
+	int max_b = find_max(*stack_b);
+	while ((*stack_b)->numberfield != max_b)
+		rra(stack_b);
+	int lastminofchunk = find_min(*stack_a);
+	index = find_index(*stack_a, lastminofchunk);
+	count = 0;
+	if (index <= ft_lstsize(*stack_a) / 2)
+		while (count < index - 1)
 		{
 			ra(stack_a);
+			count++;
+		}
+	else
+	{
+		while (count < ft_lstsize(*stack_a) - index + 1)
+		{
+			rra (stack_a);
 			index++;
 		}
+	}
+	min = find_min(*stack_b);
+	if ((*stack_a)->numberfield < min)
+	{
+		pb(stack_a, stack_b);
+		ra(stack_b);
 	}
 	else
 	{
-		index = 0;
-		// printf("index:%d", index);
-		// printf("size:%d", size);
-		// printf("hold_last:%d",  hold_last);
-		// printf("last:%d", size - find_index(*stack_a, hold_last) + 1);
-		while (index < (size - index_last + 1))
-		{
-			rra(stack_a);
-			index++;
-		}
+		while ((*stack_a)->numberfield < (*stack_b)->numberfield)
+			ra(stack_b);
+		pb(stack_a, stack_b);
 	}
-	pb(stack_a, stack_b);
-	// printlist(*stack_a);
-	// printlist(*stack_b);
+	max_b = find_max(*stack_b);
+	while ((*stack_b)->numberfield != max_b)
+		rra(stack_b);
+i++;
+}
+	count = 0;
+	size = ft_lstsize(*stack_b);
+	while (count < size)
+	{
+		pa (stack_a, stack_b);
+		count++;
+	}
 	return (*stack_a);
 }
