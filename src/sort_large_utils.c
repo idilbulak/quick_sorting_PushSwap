@@ -6,7 +6,7 @@
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 09:42:16 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/28 13:04:01 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/29 21:37:50 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ struct node	**what_to_push(struct node **stack_a, struct node *temp)
 	int	index_first;
 	int	index_last;
 
-printlist(*stack_a);
-	hold_first = ft_hold_first(stack_a, temp);
-	while ((*stack_a)->next != NULL)
-		*stack_a = (*stack_a)->next;
-printlist(*stack_a);
-	hold_last = ft_hold_last(stack_a, temp);
-	printf("hold first:%d\n", hold_first);
-	printf("hold last:%d\n", hold_last);
-	while ((*stack_a)->prev != NULL)
-		*stack_a = (*stack_a)->prev;
-	printlist(*stack_a);
+	if(ft_lstsize(*stack_a) == 2)
+	{
+		hold_first = (*stack_a)->numberfield;
+		hold_last = (*stack_a)->next->numberfield;
+	}
+	else
+	{
+		hold_first = ft_hold_first(stack_a, temp);
+		hold_last = ft_hold_last(stack_a, temp);
+	}
 	index_first = find_index(*stack_a, hold_first);
 	index_last = find_index(*stack_a, hold_last);
+	printf("hold first : %d\n", hold_first);
 	stack_a = bringtotop(stack_a, index_first, index_last);
 	return (stack_a);
 }
@@ -105,7 +105,7 @@ struct node	**bringtotop(struct node **stack_a, int index_first, int index_last)
 	int	index;
 
 	index = 0;
-	if (index_first <= ft_lstsize(*stack_a) - index_last + 1 || index_last == index_first)
+	if (index_first <= ft_lstsize(*stack_a) - index_last + 1)
 	{
 		while (index < index_first - 1)
 		{
@@ -139,15 +139,30 @@ void	*push_organize(struct node **stack_a, struct node **stack_b)
 	else
 	{
 		min = find_min(*stack_b);
+		int max = find_max(*stack_b);
 		if ((*stack_a)->numberfield < min)
 		{
+			stack_b = bring_max_to_top(stack_b); 	
 			pb(stack_a, stack_b);
 			rb(stack_b);
 		}
+		// if ((*stack_a)->numberfield > max)
+		// {
+		// 	stack_b = bring_max_to_top(stack_b);
+		// 	pb(stack_a, stack_b);
+		// }
 		else
 		{
 			while ((*stack_a)->numberfield < (*stack_b)->numberfield)
 				rb(stack_b);
+			while ((*stack_b)->next)
+				*stack_b = (*stack_b)->next;
+			while ((*stack_a)->numberfield < (*stack_b)->numberfield)
+			{
+				while ((*stack_b)->prev)
+					*stack_b = (*stack_b)->prev;
+				rrb(stack_b);
+			}
 			pb(stack_a, stack_b);
 		}
 	}

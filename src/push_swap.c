@@ -6,7 +6,7 @@
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:17:13 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/28 09:49:23 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/29 16:48:57 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
-		printlist (stack_a);
+		// printlist (stack_a);
 		if (argc == 4)
 			stack_a = sort_3(stack_a);
 		else if (argc == 6)
@@ -47,6 +47,6 @@ int	main(int argc, char **argv)
 		// printf("min:%d", find_min(stack_a));
 		// printf("next min:%d", find_next_min(stack_a, find_min(stack_a)));
 		// printf("next next min:%d", find_next_min(stack_a, find_next_min(stack_a, find_min(stack_a))));
-		printlist (stack_a);
+		// printlist (stack_a);
 	}
 }
