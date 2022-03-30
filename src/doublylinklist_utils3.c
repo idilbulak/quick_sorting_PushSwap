@@ -6,7 +6,7 @@
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/15 15:06:17 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/29 19:22:58 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/30 16:55:32 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,41 @@ int	find_index(struct node *stack_a, int numberfield)
 	return (count);
 }
 
-struct node	**bring_max_to_top(struct node **stack)
+int	find_last(struct node **stack)
 {
-	int max = find_max(*stack);
-	int index = find_index(*stack, max);
+	struct node	*temp;
+	int			last_number;
+
+	temp = *stack;
+	while (temp->next != NULL)
+		temp = temp->next;
+	last_number = temp->numberfield;
+	return (last_number);
+}
+
+struct node	**bring_max_to_top(struct node **stack_a, struct node **stack_b)
+{
+	int max = find_max(*stack_b);
+	int index = find_index(*stack_b, max);
 	int count = 0;
-	if((*stack)->numberfield != max)
+	if((*stack_b)->numberfield != max)
 	{
-		if (index <= ft_lstsize(*stack) / 2 + 1)
+		if (index <= ft_lstsize(*stack_b) / 2 + 1)
 		{
 			while (count < index - 1)
 			{
-				rb(stack);
+				rb(stack_b);
 				count++;
 			}
 		}
 		else
 		{
-			while (count < (ft_lstsize(*stack) - index + 1))
+			while (count < (ft_lstsize(*stack_b) - index + 1))
 			{
-				rrb(stack);
+				rrb(stack_b);
 				count++;
 			}
 		}	
 	}
-	return (stack);
+	return (stack_b);
 }

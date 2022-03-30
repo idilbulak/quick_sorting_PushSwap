@@ -6,7 +6,7 @@
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 12:48:06 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/09 12:49:13 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/30 15:29:10 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ void	sb(struct node *stack_b)
 		swap(&(*stack_b).numberfield, &(*stack_b).next->numberfield);
 		printf("sb\n");
 	}
-	
 }
 
 void	ss(struct node *stack_a, struct node *stack_b)
 {
-	sa(stack_a);
-	sb(stack_b);
+	if (ft_lstsize(stack_a) > 1)
+		swap(&(*stack_a).numberfield, &(*stack_a).next->numberfield);
+	if (ft_lstsize(stack_b) > 1)
+		swap(&(*stack_b).numberfield, &(*stack_b).next->numberfield);
 	printf("ss\n");
 }

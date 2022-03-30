@@ -6,7 +6,7 @@
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 09:42:16 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/29 21:37:50 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/30 17:11:52 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,32 @@ struct node	*find_chunk(struct node **stack_a, int min, int range)
 	return (temp);
 }
 
-struct node	**pushlastmin(struct node **stack_a)
-{
-	int	count;
-	int	lastminofchunk = find_min(*stack_a);
-	int index = find_index(*stack_a, lastminofchunk);
-	count = 0;
-	if (index <= ft_lstsize(*stack_a) / 2)
-	{
-		while (count < index - 1)
-		{
-			ra(stack_a);
-			count++;
-		}
-	}
-	else
-	{
-		while (count < ft_lstsize(*stack_a) - index + 1)
-		{
-			rra (stack_a);
-			count++;
-		}
-	}
-	return (stack_a);
-}
+// struct node	**pushlastmin(struct node **stack_a)
+// {
+// 	int	count;
+// 	int	lastminofchunk = find_min(*stack_a);
+// 	int index = find_index(*stack_a, lastminofchunk);
+// 	count = 0;
+// 	if (index <= ft_lstsize(*stack_a) / 2)
+// 	{
+// 		while (count < index - 1)
+// 		{
+// 			ra(stack_a);
+// 			count++;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		while (count < ft_lstsize(*stack_a) - index + 1)
+// 		{
+// 			rra (stack_a);
+// 			count++;
+// 		}
+// 	}
+// 	return (stack_a);
+// }
 
-struct node	**what_to_push(struct node **stack_a, struct node *temp)
+struct node	**what_to_push(struct node **stack_a, struct node **stack_b, struct node *temp)
 {
 	int	hold_first;
 	int	hold_last;
@@ -95,12 +95,11 @@ struct node	**what_to_push(struct node **stack_a, struct node *temp)
 	}
 	index_first = find_index(*stack_a, hold_first);
 	index_last = find_index(*stack_a, hold_last);
-	printf("hold first : %d\n", hold_first);
-	stack_a = bringtotop(stack_a, index_first, index_last);
+	stack_a = bringtotop(stack_a, stack_b, index_first, index_last);
 	return (stack_a);
 }
 
-struct node	**bringtotop(struct node **stack_a, int index_first, int index_last)
+struct node	**bringtotop(struct node **stack_a, struct node **stack_b, int index_first, int index_last)
 {
 	int	index;
 
@@ -142,26 +141,28 @@ void	*push_organize(struct node **stack_a, struct node **stack_b)
 		int max = find_max(*stack_b);
 		if ((*stack_a)->numberfield < min)
 		{
-			stack_b = bring_max_to_top(stack_b); 	
+			stack_b = bring_max_to_top(stack_a, stack_b); 	
 			pb(stack_a, stack_b);
-			rb(stack_b);
+			if (ft_lstsize(*stack_a) > 1 && (*stack_a)->numberfield < (*stack_a)->next->numberfield)
+				rr(stack_a, stack_b);
+			else
+				rb(stack_b);
+			// rb(stack_b);
 		}
-		// if ((*stack_a)->numberfield > max)
-		// {
-		// 	stack_b = bring_max_to_top(stack_b);
-		// 	pb(stack_a, stack_b);
-		// }
 		else
 		{
 			while ((*stack_a)->numberfield < (*stack_b)->numberfield)
 				rb(stack_b);
-			while ((*stack_b)->next)
-				*stack_b = (*stack_b)->next;
-			while ((*stack_a)->numberfield < (*stack_b)->numberfield)
+			if ((*stack_a)->numberfield > max)
+				stack_b = bring_max_to_top(stack_a, stack_b);
+			int last_number = find_last(stack_b);
+			while ((*stack_a)->numberfield > last_number && last_number != min)
 			{
-				while ((*stack_b)->prev)
-					*stack_b = (*stack_b)->prev;
-				rrb(stack_b);
+				if ((*stack_b)->next->numberfield < last_number)
+				{
+					rrb(stack_b);
+					last_number = find_last(stack_b);
+				}
 			}
 			pb(stack_a, stack_b);
 		}

@@ -6,7 +6,7 @@
 /*   By: ibulak <ibulak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 20:08:13 by ibulak        #+#    #+#                 */
-/*   Updated: 2022/03/09 20:52:13 by ibulak        ########   odam.nl         */
+/*   Updated: 2022/03/30 15:31:24 by ibulak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	rb(struct node **stack_b)
 
 void	rr(struct node **stack_a, struct node **stack_b)
 {
-	ra(stack_a);
-	rb(stack_b);
+	rotate(stack_a, 1);
+	rotate(stack_b, 1);
 	printf("rr\n");
 }
